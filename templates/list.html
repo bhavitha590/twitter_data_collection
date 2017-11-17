@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+<meta charset = "utf-8">
+<meta name = "viewport" content = "width = device-width, initial-scale=1">
+<title>Display</title>
+<link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"">
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+</head>
+
+<body>
+<div ng-app = "myApp" ng-controller = "Ctrl">
+<p>Hello world!!!!</p>
+<table>
+  <tr ng_repeat = "t in twitters">
+  <td>{{t.options}}</td>
+  <tr ng-repeat = "e in t.indexes">
+  <td>{{e.v}}</td>
+  <td>{{e.key}}</td>
+  <td>{{e.name}}</td>
+  <td>{{e.ns}}</td>
+  </tr>
+  </tr>
+</table>
+</div>
+</body>
+<script>
+var myApp = angular.module('myApp', []);
+myApp.controller('Ctrl', function($scope) {
+  $scope.twitters = [
+    {"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"twitterdb.twitter_search"}]}
+  ]
+})
+/*myApp.controller('Ctrl', function($scope, $http) {
+  $http.get('/twitters').success(function(response) {
+    $scope.twitters = response;
+  });
+});*/
+
+</script>
