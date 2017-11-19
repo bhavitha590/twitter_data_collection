@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+	<meta charset = "utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Code Handbook</title>
+
+
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="static/css/jumbotron-narrow.css" rel="stylesheet">
+
+    <script src= "static/js/angular.js"></script>
+
+    <script>
+    	angular.module('myApp',[])
+			.controller('HomeCtrl',function($scope , $http){
+				$scope.info = {};
+				$scope.showAdd = true;
+
+				$scope.showlist = function(){
+					$http({
+						method : 'POST',
+						url: '/gettwitterdata',
+					}).then(function(response){
+						$scope.collection = response.data;
+						console.log('mm',$scope.collection);
+
+					},function(error){
+						console.log(error);
+					});
+				}
+
+
+
+                $scope.addMachine = function(){
+                    $http({
+                        method: 'POST',
+                        url: '/addMachine',
+                        data:{
+                            info: $scope.info
+                        }
+                    }).then(function(response){
+                        $scope.showlist();
+                        $('#addPopUp').modal('hide')
+                        $scope.info = {} 
+                    }, function(error){
+                        console.log(error);
+                    })
+                }
+
+                $scope.showlist()
+				
+			})
+    </script>
+
+</head>
+
+<body ng-controller = "HomeCtrl">
+	<div class="container">
+     
+        <h3 class="text-muted">Lost or Found </h3>           
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th colspan = "2">What's LOST</th>
+                    <th colspan = "2">Image</th>
+                    <th>Location</th>
+                    <th>Created At</th>                        
+                </tr>
+            </thead>
+            <tbody>
+            	<tr ng-repeat = "item in collection track by $index">
+            		<th scope = "row">{{ '{{ $index+1 }}' }}</th>
+                    <td>{{ '{{item.text}}' }}</td>
+                    <td><img ng-src = {{ '{{item.image_url}}' }} height = "200" width = "200"></td>
+                    <td>{{ '{{item.location}}'}}</td>
+                    <td>{{ '{{item.created_at}}'}}</td>
+            	</tr>
+            </tbody>
+        </table>
+
+    
+    </div>
+
+    <script src="static/js/jquery.min.js"></script>
+    <script src = "static/js/bootstrap.min.js"></script>
+
+</body>
+
