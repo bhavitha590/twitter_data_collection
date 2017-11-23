@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Code Handbook</title>
+    <title>PROJECT</title>
 
 
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +41,10 @@
 
 
 
-                $scope.addMachine = function(){
+                $scope.addcollection = function(){
                     $http({
                         method: 'POST',
-                        url: '/addMachine',
+                        url: '/addcollection',
                         data:{
                             info: $scope.info
                         }
@@ -64,32 +64,35 @@
 
 </head>
 
-<body ng-controller = "HomeCtrl">
-	<div class="container">
-     
-        <h3 class="text-muted">Lost or Found </h3>           
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th colspan = "2">What's LOST</th>
-                    <th colspan = "2">Image</th>
-                    <th>Location</th>
-                    <th>Created At</th>                        
-                </tr>
-            </thead>
-            <tbody>
-            	<tr ng-repeat = "item in collection track by $index">
-            		<th scope = "row">{{ '{{ $index+1 }}' }}</th>
-                    <td>{{ '{{item.text}}' }}</td>
-                    <td><img ng-src = {{ '{{item.image_url}}' }} height = "200" width = "200"></td>
-                    <td>{{ '{{item.location}}'}}</td>
-                    <td>{{ '{{item.created_at}}'}}</td>
-            	</tr>
-            </tbody>
-        </table>
-
-    
+<body >
+    <div class = "row row-offcanvas row-offcanvas-left">
+        <div class = "col-1g-1"></div>
+    	<div class="container-fluid" ng-controller = "HomeCtrl">
+         
+            <h3 class="text-muted">Lost or Found </h3>  
+            <div >         
+                <table class="table">
+                    <thead>
+                        <tr class = "cob-popover-container">
+                            <th>#</th>
+                            <th>What's LOST</th>
+                            <th>Image</th>
+                            <th>Twitter Link</th>
+                            <th>Created At</th>                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<tr ng-repeat = "item in collection track by $index">
+                    		<th scope = "row">{{ '{{ $index+1 }}' }}</th>
+                            <td>{{ '{{item.text}}' }}</td>
+                            <td><img ng-src = {{ '{{item.image_url}}' }} height = "200" width = "200"></td>
+                            <td><a href={{ '{{item.url}}' }}>Go to tweet link</a></td>
+                            <td>{{ '{{item.created_at}}'}}</td>
+                    	</tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="static/js/jquery.min.js"></script>

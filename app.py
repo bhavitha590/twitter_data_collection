@@ -14,23 +14,32 @@ def gettwitterdata():
 		collection = db.twitter_search.find()
 
 		collection_list = []
+
 		for data in collection:
-			print(data)
+			
+
+			tweet_text = [data['text']]
+			tweet_text.append('')
+			twitter_url = 'https://twitter.com/' + data['user_name'] + '/status/' +data['_id']
+			if 'https' in data['text']:
+				tweet_text = data['text'].split('https')
 			collection_item = {
-				'text' : data['text'],
+				'text' : tweet_text[0],
 				'image_url' : data['image_url'],
-				'location' : data['location'],
+				'url': twitter_url,
 				'created_at' : data['created_at']
 				#'twitter_url' : 'https://twitter.com/barakobama/status/'+ data['_id']
 			}
-			collection_list.append(collection_item)
-	except e:
+			if collection_item['image_url'] != '':
+				collection_list.append(collection_item)
+	except Exception as e:
+		print('Exception caught' + str(e))
 		return str(e)
 	return json.dumps(collection_list)
 
 @application.route('/')
 def showMachineList():
-    return render_template('sample.html')	
+	return render_template('sample.html')	
 
 if __name__ == "__main__":
-    application.run(host='0.0.0.0')    
+	application.run(host='0.0.0.0')    
