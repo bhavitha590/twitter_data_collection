@@ -6,7 +6,7 @@ from fabric.api import *
 application = Flask(__name__)
 
 client = MongoClient('localhost:27017')
-db = client.twitterdb_1
+db = client.twitterdb
 
 @application.route("/gettwitterdata",methods = ['POST'])
 def gettwitterdata():
