@@ -66,11 +66,26 @@
 
 <body >
     <div class = "row row-offcanvas row-offcanvas-left">
-        <div class = "col-1g-1"></div>
     	<div class="container-fluid" ng-controller = "HomeCtrl">
-         
-            <h3 class="text-muted">Lost or Found </h3>  
-            <div >         
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Lost & Found</a>
+                    </div>
+               
+                    <form class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <input type="text" ng-model = "searchKeyword" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                        </div>
+                    </form> 
+                </div>
+            </nav>
+            <div >   
                 <table class="table">
                     <thead>
                         <tr class = "cob-popover-container">
@@ -82,10 +97,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	<tr ng-repeat = "item in collection track by $index">
+                    	<tr ng-repeat = "item in collection | filter: searchKeyword">
                     		<th scope = "row">{{ '{{ $index+1 }}' }}</th>
                             <td>{{ '{{item.text}}' }}</td>
-                            <td><img ng-src = {{ '{{item.image_url}}' }} height = "200" width = "200"></td>
+                            <td><img ng-src = {{ '{{item.image_url}}' }} style="width:200px;height:200px;border:0;"></td>
                             <td><a href={{ '{{item.url}}' }}>Go to tweet link</a></td>
                             <td>{{ '{{item.created_at}}'}}</td>
                     	</tr>
