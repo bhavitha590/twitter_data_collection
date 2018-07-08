@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask,render_template,jsonify,json,request
-from fabric.api import *
+from fabric import *
 from operator import itemgetter
 application = Flask(__name__)
 
